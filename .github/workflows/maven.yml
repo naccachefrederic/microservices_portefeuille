@@ -1,13 +1,12 @@
 name: Feature Branch
 on:
   push:
-    branches-ignore:
-      - 'main'
+    branches: [ main ]
+    
 jobs:
-  test:
-    name: Unit-Test
+  build:
     runs-on: ubuntu-latest
- steps:
+    steps:
       - uses: actions/checkout@v1
       - name: Set up JDK
         uses: actions/setup-java@v1
