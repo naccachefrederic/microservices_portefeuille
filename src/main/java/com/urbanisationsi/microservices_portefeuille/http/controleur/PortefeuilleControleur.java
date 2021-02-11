@@ -1,6 +1,7 @@
 package com.urbanisationsi.microservices_portefeuille.http.controleur;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.urbanisationsi.microservices_portefeuille.dao.PortefeuilleRepository;
+import com.urbanisationsi.microservices_portefeuille.exceptions.PortefeuilleIntrouvableException;
 import com.urbanisationsi.microservices_portefeuille.modele.Portefeuille;
 
 import io.swagger.annotations.Api;
@@ -46,7 +48,7 @@ public class PortefeuilleControleur
                 URI uri = ServletUriComponentsBuilder
                         .fromCurrentRequest()
                         .path("/{id}")
-                        .buildAndExpand(portefeuilleAjoute.getId())
+                        .buildAndExpand(portefeuilleAjoute.getIdPortefeuille())
                         .toUri();
 
                 return ResponseEntity.created(uri).build(); 
@@ -59,20 +61,20 @@ public class PortefeuilleControleur
 		return listePortefeuille;
     }
     
-    /*
-    @GetMapping(path="/Portefeuille/numeroPortefeuille/{numeroPortefeuille}")
-	public List<Portefeuille> rechercherPortefeuilleNumeroPortefeuille(@PathVariable  Long numeroPortefeuille) 
+    
+    @GetMapping(path="/user/{useremail}")
+	public List<Portefeuille> rechercherPortefeuilleUserEmail(@PathVariable  String useremail) 
     {
-		List<Portefeuille> listePortefeuille = (List<Portefeuille>) portefeuilleRepository.rechercherPortefeuilleParNumeroPortefeuille(numeroPortefeuille);
+		List<Portefeuille> listePortefeuille = (List<Portefeuille>) portefeuilleRepository.rechercherPortefeuilleParUserEmail(useremail);
 		if(listePortefeuille.isEmpty()) 
-			throw new PortefeuilleIntrouvableException("Aucun portefeuille n'a été enregistré.");
+			throw new PortefeuilleIntrouvableException("Aucun portefeuille n'a été enregistré avec cet email.");
 		else
 			return listePortefeuille;
 	}
-	*/
+	
 
     @DeleteMapping (path="/Portefeuille/{id}")     
-    public void supprimerPortefeuiller(@PathVariable Integer id) 
+    public void supprimerPortefeuille(@PathVariable Integer id) 
     {
      portefeuilleRepository.deleteById(id);        
     }
