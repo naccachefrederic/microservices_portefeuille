@@ -30,7 +30,7 @@ import io.swagger.annotations.Api;
 @RestController  
 @RequestMapping(path="/portefeuille")  
 public class PortefeuilleControleur 
-{
+{ 
     @Autowired  
     private PortefeuilleRepository portefeuilleRepository;
 
