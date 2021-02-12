@@ -14,4 +14,7 @@ public interface PortefeuilleRepository extends CrudRepository<Portefeuille, Int
 	
 	@Query("from Portefeuille p where p.useremail = :ue")
 	public List<Portefeuille> rechercherPortefeuilleParUserEmail(@Param("ue") String useremail);
+	
+	@Query("delete from Portefeuille p where p.useremail = :ue")
+	public void deleteByUseremail(@Param("ue") String useremail);
 }

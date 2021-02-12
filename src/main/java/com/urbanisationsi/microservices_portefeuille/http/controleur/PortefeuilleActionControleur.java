@@ -1,6 +1,7 @@
 package com.urbanisationsi.microservices_portefeuille.http.controleur;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -15,12 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.urbanisationsi.microservices_portefeuille.dao.PortefeuilleActionRepository;
-import com.urbanisationsi.microservices_portefeuille.modele.Portefeuille;
+import com.urbanisationsi.microservices_portefeuille.exceptions.PortefeuilleIntrouvableException;
 import com.urbanisationsi.microservices_portefeuille.modele.PortefeuilleAction;
 
 import io.swagger.annotations.Api;
@@ -35,7 +35,7 @@ public class PortefeuilleActionControleur
 
     Logger log = LoggerFactory.getLogger(this.getClass()); 
 
-    @PostMapping(path="/ajouterActionAuPortefeuille")
+    @PostMapping(path="/ajouterUneActionAuPortefeuille")
     public ResponseEntity<Void> creerPortefeuilleAction(@Valid @RequestBody PortefeuilleAction portefeuilleAction) 
     {
     		log.info("Appel de creerPortefeuilleAction");
@@ -53,31 +53,28 @@ public class PortefeuilleActionControleur
                 return ResponseEntity.created(uri).build(); 
     }
 
-    @GetMapping(path="/listerLesActionsDansPortefeuilles")  
-    public @ResponseBody Iterable<PortefeuilleAction>  getAllPortefeuilleAction() 
+    @GetMapping(path="/numeroPortefeuille/{idPortefeuille}")
+	public List<PortefeuilleAction> rechercherPortefeuilleActionParIdPortefeuille(@PathVariable  Integer idPortefeuille) 
     {
-		Iterable<PortefeuilleAction> listePortefeuilleAction = portefeuilleActionRepository.findAll();
-		return listePortefeuilleAction;
-    }
-    
-    /*
-    @GetMapping(path="/Portefeuille/numeroPortefeuille/{numeroPortefeuille}")
-	public List<Portefeuille> rechercherPortefeuilleNumeroPortefeuille(@PathVariable  Long numeroPortefeuille) 
-    {
-		List<Portefeuille> listePortefeuille = (List<Portefeuille>) portefeuilleRepository.rechercherPortefeuilleParNumeroPortefeuille(numeroPortefeuille);
-		if(listePortefeuille.isEmpty()) 
-			throw new PortefeuilleIntrouvableException("Aucun portefeuille n'a été enregistré.");
+		List<PortefeuilleAction> listePortefeuilleAction = (List<PortefeuilleAction>) portefeuilleActionRepository.rechercherPortefeuilleActionParIdPortefeuille(idPortefeuille);
+		if(listePortefeuilleAction.isEmpty()) 
+			throw new PortefeuilleIntrouvableException("Aucun portefeuille n'a été enregistré avec cet Id: "+idPortefeuille);
 		else
-			return listePortefeuille;
+			return listePortefeuilleAction;
 	}
-	*/
 
-    @DeleteMapping (path="/PortefeuilleAction/{id}")     
-    public void supprimerPortefeuilleAction(@PathVariable Integer id) 
+    @DeleteMapping (path="/{id}")     
+    public void supprimerPortefeuilleActionAvecId(@PathVariable Integer id) 
     {
      portefeuilleActionRepository.deleteById(id);        
     }
 
+    @DeleteMapping (path="/portefeuille/{idPortefeuille}")     
+    public void supprimerPortefeuilleActionAvecIdPortefeuille(@PathVariable Integer idPortefeuille) 
+    {
+     portefeuilleActionRepository.deleteByIdPortefeuille(idPortefeuille);        
+    }
+    
     @PutMapping (path="/modifierPortefeuilleAction")    
     public void modifierPortefeuilleAction(@RequestBody PortefeuilleAction portefeuilleAction) 
     {

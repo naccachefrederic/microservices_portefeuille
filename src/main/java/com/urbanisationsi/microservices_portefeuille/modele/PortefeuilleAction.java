@@ -11,24 +11,24 @@ import javax.persistence.Id;
 public class PortefeuilleAction {
 	@Id    
     @GeneratedValue(strategy=GenerationType.AUTO)   
-	protected Integer 	idPortefeuilleAction; 
-	protected Integer 	idPortefeuille;
+	protected Integer 	id; 
+	protected Integer 	idportefeuille;
 	protected String 	codeaction;
 	protected Double 	valeuroriginaleaction;
 	protected Date 		dateachataction;
 	protected Integer	quantiteaction;
 	
 	public Integer getIdPortefeuilleAction() {
-		return idPortefeuilleAction;
+		return id;
 	}
-	public void setIdPortefeuilleAction(Integer idPortefeuilleAction) {
-		this.idPortefeuilleAction = idPortefeuilleAction;
+	public void setIdPortefeuilleAction(Integer id) {
+		this.id = id;
 	}
 	public Integer getIdPortefeuille() {
-		return idPortefeuille;
+		return idportefeuille;
 	}
-	public void setIdPortefeuille(Integer idPortefeuille) {
-		this.idPortefeuille = idPortefeuille;
+	public void setIdPortefeuille(Integer idportefeuille) {
+		this.idportefeuille = idportefeuille;
 	}
 	public String getCodeaction() {
 		return codeaction;

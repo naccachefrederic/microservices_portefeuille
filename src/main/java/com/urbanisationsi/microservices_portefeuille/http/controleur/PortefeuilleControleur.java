@@ -36,7 +36,7 @@ public class PortefeuilleControleur
 
     Logger log = LoggerFactory.getLogger(this.getClass()); 
 
-    @PostMapping(path="/ajouterPortefeuille")
+    @PostMapping(path="/ajouterUnPortefeuille")
     public ResponseEntity<Void> creerPortefeuille(@Valid @RequestBody Portefeuille portefeuille) 
     {
     		log.info("Appel de creerPortefeuille");
@@ -54,7 +54,7 @@ public class PortefeuilleControleur
                 return ResponseEntity.created(uri).build(); 
     }
 
-    @GetMapping(path="/listerLesPortefeuilles")  
+    @GetMapping(path="/listerTousLesPortefeuilles")  
     public @ResponseBody Iterable<Portefeuille>  getAllPortefeuille() 
     {
 		Iterable<Portefeuille> listePortefeuille = portefeuilleRepository.findAll();
@@ -62,7 +62,7 @@ public class PortefeuilleControleur
     }
     
     
-    @GetMapping(path="/user/{useremail}")
+    @GetMapping(path="/rechercheParUserEmail/{useremail}")
 	public List<Portefeuille> rechercherPortefeuilleUserEmail(@PathVariable  String useremail) 
     {
 		List<Portefeuille> listePortefeuille = (List<Portefeuille>) portefeuilleRepository.rechercherPortefeuilleParUserEmail(useremail);
@@ -73,13 +73,19 @@ public class PortefeuilleControleur
 	}
 	
 
-    @DeleteMapping (path="/Portefeuille/{id}")     
-    public void supprimerPortefeuille(@PathVariable Integer id) 
+    @DeleteMapping (path="/supprimerAvecId/{id}")     
+    public void supprimerPortefeuilleAvecId(@PathVariable Integer id) 
     {
      portefeuilleRepository.deleteById(id);        
     }
 
-    @PutMapping (path="/modifierPortefeuille")    
+    @DeleteMapping (path="/supprimerAvecEmail/{email}")     
+    public void supprimerPortefeuilleAvecEmail(@PathVariable String email) 
+    {
+     portefeuilleRepository.deleteByUseremail(email);        
+    }
+
+    @PutMapping (path="/modifierUnPortefeuille")    
     public void modifierPortefeuille(@RequestBody Portefeuille portefeuille) 
     {
       portefeuilleRepository.save(portefeuille);
