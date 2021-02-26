@@ -27,7 +27,7 @@ import com.urbanisationsi.microservices_portefeuille.modele.PortefeuilleAction;
 import io.swagger.annotations.Api;
 
 @Api(description = "API pour les opérations CRUD pour les actions d'un portefeuille")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController  
 @RequestMapping(path="/portefeuilleaction")  
 public class PortefeuilleActionControleur 
