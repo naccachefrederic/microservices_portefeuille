@@ -81,10 +81,10 @@ public class PortefeuilleActionControleur
      portefeuilleActionRepository.deletecodeActionInIdPortefeuille(idPortefeuille, codeAction);        
     }
 
-    @DeleteMapping (path="/portefeuille/{idPortefeuille}")     
-    public void supprimerPortefeuilleActionAvecIdPortefeuille(@PathVariable Integer idPortefeuille) 
+    @DeleteMapping (path="/{idPortefeuilleAction}")     
+    public void supprimerPortefeuilleActionAvecIdPortefeuilleAction(@PathVariable Integer idPortefeuilleAction) 
     {
-     portefeuilleActionRepository.deleteByIdPortefeuille(idPortefeuille);        
+     portefeuilleActionRepository.deleteByIdPortefeuilleAction(idPortefeuilleAction);        
     }
     
     @PutMapping (path="/modifierPortefeuilleAction")    

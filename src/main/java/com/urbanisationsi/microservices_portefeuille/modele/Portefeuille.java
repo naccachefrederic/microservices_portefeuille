@@ -10,21 +10,21 @@ public class Portefeuille
 {
 	@Id    
     @GeneratedValue(strategy=GenerationType.AUTO)   
-	protected Integer 	idPortefeuille; 
-	protected String 	useremail;
+	protected Integer 	id; 
+	protected String 	username;
 	protected double 	capital;
 	
-	public Integer getIdPortefeuille() {
-		return idPortefeuille;
+	public Integer getId() {
+		return id;
 	}
 	public void setIdPortefeuille(Integer idPortefeuille) {
-		this.idPortefeuille = idPortefeuille;
+		this.id = idPortefeuille;
 	}
-	public String getUseremail() {
-		return useremail;
+	public String getUsername() {
+		return username;
 	}
-	public void setUseremail(String useremail) {
-		this.useremail = useremail;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public double getCapital() {
 		return capital;

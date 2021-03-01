@@ -21,10 +21,10 @@ public interface PortefeuilleActionRepository extends CrudRepository<Portefeuill
 	
 	@Transactional
 	@Modifying
-	@Query("delete from PortefeuilleAction pa where pa.idportefeuille = :idp")
-	public void deleteByIdPortefeuille(@Param("idp") Integer idp);
+	@Query("delete from PortefeuilleAction pa where pa.id = :idpa")
+	public void deleteByIdPortefeuilleAction(@Param("idpa") Integer idpa);
 
-	@Query("from PortefeuilleAction pa where pa.idportefeuille = :idp")
+	@Query("from PortefeuilleAction pa where pa.idportefeuille = :idp order by codeaction")
 	public List<PortefeuilleAction> rechercherPortefeuilleActionParIdPortefeuille(@Param("idp") Integer idp);
 
 	@Query("from PortefeuilleAction pa where pa.codeaction = :ca")

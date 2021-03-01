@@ -15,19 +15,8 @@ import com.urbanisationsi.microservices_portefeuille.modele.Portefeuille;
 
 @SpringBootTest
 class MicroservicePortefeuilleApplicationTests {
-
-	@Autowired
-	private PortefeuilleControleur pc;
-	
 	@Test
 	void contextLoads() {
-		
-		String useremail = "naccachefrederic@gmail.com";
-		List<Portefeuille> result = pc.rechercherPortefeuilleUserEmail(useremail);
-		assertThat(!result.isEmpty());
-
-		final String useremail1 = "error@gmail.com";
-		assertThatThrownBy(() -> pc.rechercherPortefeuilleUserEmail(useremail1)).isInstanceOf(PortefeuilleIntrouvableException.class);
-		
+		assertThat(true);
 	}
 }

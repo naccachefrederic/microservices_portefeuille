@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import com.urbanisationsi.microservices_portefeuille.modele.Portefeuille;
 import io.swagger.annotations.Api;
 
 @Api(description = "API pour les opérations CRUD pour les portefeuilles")
+@CrossOrigin(origins = "*")
 @RestController  
 @RequestMapping(path="/portefeuille")  
 public class PortefeuilleControleur 
@@ -48,7 +50,7 @@ public class PortefeuilleControleur
                 URI uri = ServletUriComponentsBuilder
                         .fromCurrentRequest()
                         .path("/{id}")
-                        .buildAndExpand(portefeuilleAjoute.getIdPortefeuille())
+                        .buildAndExpand(portefeuilleAjoute.getId())
                         .toUri();
 
                 return ResponseEntity.created(uri).build(); 
@@ -62,10 +64,10 @@ public class PortefeuilleControleur
     }
     
     
-    @GetMapping(path="/rechercheParUserEmail/{useremail}")
-	public List<Portefeuille> rechercherPortefeuilleUserEmail(@PathVariable  String useremail) 
+    @GetMapping(path="/rechercheParUserName/{username}")
+	public List<Portefeuille> rechercherPortefeuilleUserName(@PathVariable  String username) 
     {
-		List<Portefeuille> listePortefeuille = (List<Portefeuille>) portefeuilleRepository.rechercherPortefeuilleParUserEmail(useremail);
+		List<Portefeuille> listePortefeuille = (List<Portefeuille>) portefeuilleRepository.rechercherPortefeuilleParUserName(username);
 		if(listePortefeuille.isEmpty()) 
 			throw new PortefeuilleIntrouvableException("Aucun portefeuille n'a été enregistré avec cet email.");
 		else
@@ -79,10 +81,10 @@ public class PortefeuilleControleur
      portefeuilleRepository.deleteById(id);        
     }
 
-    @DeleteMapping (path="/supprimerAvecEmail/{email}")     
-    public void supprimerPortefeuilleAvecEmail(@PathVariable String email) 
+    @DeleteMapping (path="/supprimerAvecName/{name}")     
+    public void supprimerPortefeuilleAvecName(@PathVariable String name) 
     {
-     portefeuilleRepository.deleteByUseremail(email);        
+     portefeuilleRepository.deleteByUsername(name);        
     }
 
     @PutMapping (path="/modifierUnPortefeuille")    
